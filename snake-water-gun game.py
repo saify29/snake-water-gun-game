@@ -42,3 +42,4 @@ print(f"\nFinal scores:\nYour Score: {user_score}.\nComputer Score: {comp_score}
 
 
 #this is just start to understand  the git and github, a test feature1(branch)
+print("I am understanding the git/github for my project. That\'s why I created the a new branch \"feature1\"")
