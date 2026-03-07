@@ -1,39 +1,61 @@
-import random as rd
+import random
 
-options=["s","w","g"]
-print("snake:s ,water:w, gun:g")
+print("s=snake, w=water, g=gun")
+options = ["s","w","g"]
 
-user_score=comp_score =0
-round=1
+def comp_choice():
+    return random.choice(options)
+    #generates a rendom choice from the options and return it
 
-t_r=int(input("how many rounds you want to play: "))
+def user_input():
+    while True:
+        user = input("enter your choice: ").lower()
+        if user in options:
+            return user
+        print("The input is invalid, enter the valid option.")
+        #takes the user input and validate it.
 
-while round<=t_r:
-    comp=rd.choice(options)
-    user = input("enter your choice:").lower()
-    if user not in options:
-        print("please pick correct option.")
-        continue
-    print(f"computer chose:{comp}")
-    if user==comp:
-        print("draw")
+def display_result(user_score,comp_score):
+    #print the final scores.
+    print(f"\nFinal scores:\nYour Score: {user_score}.\nComputer Score: {comp_score}.\n")
+    # make the display_result of who wins.  
+    if user_score < comp_score:
+        return("Computer won the game")
 
-    elif (user=="s" and comp=="w") or (user=="w" and comp=="g") or (user=="g" and comp=="s"):
-        print("you win\n")
-        user_score+=1
+    elif user_score > comp_score:
+        return("You win the game.")
+
     else:
-        print("computer won!\n")
-        comp_score+=1
-    round+=1
+        return("Score is equal. Game Drawn!")
     
-if user_score < comp_score:
-    print("Computer won the game")
+def main():
+    #main function includes the conditionals, tracks and return the score of players
+    user_score = comp_score =0
+    total_rounds = int(input("how many rounds you want to play: "))
 
-elif user_score > comp_score:
-    print("you win the game.")
+    for i in range(1, total_rounds+1):
+        user = user_input()
+        comp = comp_choice()
 
-else:
-    print("score is equal")
+        print(f"computer chose: {comp}")
+        if user == comp:
+            print("draw\n")
+
+        elif (user == "s" and comp == "w") or (user == "w" and comp == "g") or (user == "g" and comp == "s"):
+            print("you win\n")
+            user_score += 1
+        else:
+            print("computer won!\n")
+            comp_score += 1
+        
+
+    return user_score, comp_score
 
 
-print(f"\nFinal scores:\nYour Score: {user_score}.\nComputer Score: {comp_score}.")
+# Captures the returned values from the main function
+user_score, comp_score = main()
+
+#prints the name of the winner or drawn
+print(display_result(user_score, comp_score))
+
+
